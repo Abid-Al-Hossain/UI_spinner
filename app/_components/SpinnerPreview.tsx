@@ -104,6 +104,7 @@ function getLabelPositionStyle(position: SpinnerLabelConfig["position"]) {
 }
 
 export function SpinnerPreview({ state }: { state: SpinnerState }) {
+  const [isFocused, setIsFocused] = React.useState(false);
   const renderVariant = () => {
     switch (state.variant) {
       case "circular":
@@ -132,7 +133,24 @@ export function SpinnerPreview({ state }: { state: SpinnerState }) {
   };
 
   return (
-    <div className="relative flex h-full min-h-[400px] w-full flex-col items-center justify-center overflow-hidden">
+    <div
+      role={state.ariaHidden ? undefined : state.role}
+      aria-live={state.ariaHidden ? undefined : state.ariaLive}
+      aria-label={state.ariaHidden ? undefined : state.label || undefined}
+      aria-valuetext={state.ariaHidden ? undefined : state.ariaValueText || undefined}
+      aria-hidden={state.ariaHidden || undefined}
+      tabIndex={state.focusRingEnabled && !state.disabled ? 0 : undefined}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      className="relative flex h-full min-h-[400px] w-full flex-col items-center justify-center overflow-hidden"
+      style={{
+        opacity: state.disabled ? state.disabledOpacity : 1,
+        pointerEvents: state.disabled ? "none" : undefined,
+        transition: state.transitionDuration > 0 ? `opacity ${state.transitionDuration}ms ${state.transitionEasing}` : undefined,
+        outline: isFocused && state.focusRingEnabled ? `${state.focusRingWidth}px solid ${state.focusRingColor}` : undefined,
+        outlineOffset: isFocused && state.focusRingEnabled ? state.focusRingOffset : undefined,
+      }}
+    >
       <div
         className="pointer-events-none absolute inset-0 opacity-20"
         style={{

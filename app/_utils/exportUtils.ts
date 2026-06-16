@@ -564,6 +564,7 @@ export default function Spinner() {
   const trackOpacity = ${state.trackOpacity};
   const glowIntensity = ${state.glowIntensity};
   const ariaLabel = ${JSON.stringify(state.label || "Loading")};
+  const [isFocused, setIsFocused] = React.useState(false);
 
   const getRainbowColor = (index, total) => {
     const safeTotal = Math.max(total, 1);
@@ -615,9 +616,14 @@ ${indent(getReactVariantMarkup(state), 4)}
 
   return (
     <div
-      role="status"
-      aria-live="polite"
-      aria-label={ariaLabel}
+      role={${state.ariaHidden} ? undefined : ${JSON.stringify(state.role)}}
+      aria-live={${state.ariaHidden} ? undefined : ${JSON.stringify(state.ariaLive)}}
+      aria-label={${state.ariaHidden} ? undefined : ariaLabel}
+      aria-valuetext={${state.ariaHidden} ? undefined : ${JSON.stringify(state.ariaValueText || undefined)}}
+      aria-hidden={${JSON.stringify(state.ariaHidden || undefined)}}
+      tabIndex={${state.focusRingEnabled && !state.disabled} ? 0 : undefined}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
       style={{
         position: "relative",
         display: "inline-flex",
@@ -626,6 +632,11 @@ ${indent(getReactVariantMarkup(state), 4)}
         padding: "40px",
         minWidth: size + 80,
         minHeight: size + 80,
+        opacity: ${state.disabled} ? ${state.disabledOpacity} : 1,
+        pointerEvents: ${state.disabled} ? "none" : undefined,
+        transition: ${state.transitionDuration > 0 ? `"opacity ${state.transitionDuration}ms ${state.transitionEasing}"` : "undefined"},
+        outline: isFocused && ${state.focusRingEnabled} ? \`${state.focusRingWidth}px solid ${state.focusRingColor}\` : undefined,
+        outlineOffset: isFocused && ${state.focusRingEnabled} ? ${state.focusRingOffset} : undefined,
       }}
     >
       <style>{\`

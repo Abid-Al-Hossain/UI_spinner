@@ -26,6 +26,7 @@ import EffectsSection from "./_section/EffectsSection";
 import DistortionSection from "./_section/DistortionSection";
 import ParticlesSection from "./_section/ParticlesSection";
 import AccessibilitySection from "./_section/AccessibilitySection";
+import StatesSection from "./_section/StatesSection";
 import LabelsSection from "./_section/LabelsSection";
 import StatusSection from "./_section/StatusSection";
 export default function SpinnerPlayground() {
@@ -112,7 +113,9 @@ export default function SpinnerPlayground() {
           />
         );
       case "accessibility":
-        return <AccessibilitySection />;
+        return <AccessibilitySection state={state} update={handleUpdate} />;
+      case "states":
+        return <StatesSection state={state} update={handleUpdate} />;
       default:
         return null;
     }
@@ -134,6 +137,7 @@ export default function SpinnerPlayground() {
     { id: "motion", label: "Motion" },
     { id: "labels", label: "Labels" },
     { id: "accessibility", label: "Accessibility" },
+    { id: "states", label: "States" },
   ];
 
   const controls = (
