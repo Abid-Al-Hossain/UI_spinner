@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useDeferredValue } from "react";
+import ContrastGuard from "@/components/shared/color/ContrastGuard";
 import AppShell from "@/components/shared/layout/AppShell";
 import { PlaygroundLayout } from "@/components/shared/layout/PlaygroundLayout";
 import PreviewDownloadPanel from "@/components/shared/layout/SharedPreviewDownloadPanel";
@@ -187,7 +188,6 @@ export default function SpinnerPlayground() {
       code={exportCode.content}
     />
   );
-
   return (
     <AppShell contentOverflow="hidden">
       <PlaygroundLayout
@@ -196,6 +196,7 @@ export default function SpinnerPlayground() {
         controls={controls}
         preview={preview}
       />
-    </AppShell>
+
+<ContrastGuard /></AppShell>
   );
 }
