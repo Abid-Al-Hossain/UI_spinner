@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SectionCard, LabeledField, Segmented } from "@/components/shared/layout/ui";
+import { SectionCard, LabeledField, FilterSelect } from "@/components/shared/layout/ui";
 import { SPINNER_PRESETS, SPINNER_PRESET_COUNT, type SpinnerPreset } from "../_data/spinnerPresets";
 import type { SpinnerState } from "../types";
 import { SpinnerPreview } from "../_components/SpinnerPreview";
@@ -102,7 +102,7 @@ export default function PresetsSection({ state, applyPreset }: Props) {
           </LabeledField>
 
           <LabeledField label="Variant">
-            <Segmented
+            <FilterSelect
               value={variantFilter}
               onChange={(value) => {
                 setVariantFilter(value);
@@ -119,7 +119,7 @@ export default function PresetsSection({ state, applyPreset }: Props) {
 
         <div className="grid gap-3 md:grid-cols-3">
           <LabeledField label="Color Mode">
-            <Segmented
+            <FilterSelect
               value={modeFilter}
               onChange={(value) => {
                 setModeFilter(value);
