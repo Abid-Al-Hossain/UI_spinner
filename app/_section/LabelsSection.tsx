@@ -132,8 +132,8 @@ export default function LabelsSection({ state, updateLabels }: Props) {
                 <ControlGroup label="Text">
                   <InputControl
                     value={label.text || ""}
-                    onChange={(event) =>
-                      updateLabel(label.id, "text", event.target.value)
+                    onChange={(value) =>
+                      updateLabel(label.id, "text", value)
                     }
                     placeholder="Loading..."
                   />
